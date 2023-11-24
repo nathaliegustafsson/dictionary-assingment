@@ -1,7 +1,8 @@
 import './App.css';
+import DictionaryExample from './components/Dictionary';
 
 function App() {
-    return <h1>Hello World</h1>;
+    return <DictionaryExample />;
 }
 
 export default App;
