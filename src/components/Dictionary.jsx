@@ -38,9 +38,12 @@ function DictionaryExample() {
             style={{
                 display: 'flex',
                 flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
                 backgroundColor: '#F4F3F2',
                 padding: '3rem',
                 width: '40rem',
+                marginBottom: '4rem',
             }}
         >
             <div
@@ -119,13 +122,20 @@ function DictionaryExample() {
             ) : (
                 wordData &&
                 wordData.length > 0 && (
-                    <div>
-                        <h1>{wordData[0].word}</h1>
-                        <h2>Phonetics</h2>
-                        <ul>
+                    <div
+                        style={{
+                            width: '450px',
+                        }}
+                    >
+                        <ul style={{ padding: 0 }}>
+                            <h1 style={{ fontFamily: 'Playfair Display, serif' }}>
+                                {wordData[0].word}
+                            </h1>
                             {wordData[0].phonetics.map((phonetic, index) => (
-                                <li key={index}>
-                                    <p>{phonetic.text}</p>
+                                <li key={index} style={{ listStyle: 'none', display: 'flex' }}>
+                                    <p style={{ fontFamily: 'Playfair Display, serif' }}>
+                                        {phonetic.text}
+                                    </p>
                                     {phonetic.audio && (
                                         <audio controls>
                                             <source src={phonetic.audio} type="audio/mp3" />
@@ -134,14 +144,23 @@ function DictionaryExample() {
                                 </li>
                             ))}
                         </ul>
-                        <h2>Meanings</h2>
+
+                        <div
+                            className="border"
+                            style={{ height: '1px', width: '100%', backgroundColor: 'black' }}
+                        ></div>
+
                         {wordData[0].meanings.map((meaning, index) => (
                             <div key={index}>
-                                <p>{meaning.partOfSpeech}</p>
-                                <ul>
+                                <p style={{ fontFamily: 'Cormorant Garamond' }}>
+                                    {meaning.partOfSpeech}
+                                </p>
+                                <ul style={{ padding: 0 }}>
                                     {meaning.definitions.map((definition, index) => (
-                                        <li key={index}>
-                                            <p>{definition.definition}</p>
+                                        <li key={index} style={{ listStyle: 'none' }}>
+                                            <p style={{ fontFamily: 'Cormorant Garamond' }}>
+                                                {definition.definition}
+                                            </p>
                                         </li>
                                     ))}
                                 </ul>
