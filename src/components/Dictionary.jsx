@@ -7,9 +7,7 @@ function DictionaryExample() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(
-                    'https://api.dictionaryapi.dev/api/v2/entries/en/world'
-                );
+                const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/sky');
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -33,7 +31,39 @@ function DictionaryExample() {
     }
 
     return (
-        <div>
+        <div
+            className="dictionary-container"
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: '#F4F3F2',
+                padding: '3rem',
+            }}
+        >
+            <div
+                className="input-container"
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '1rem',
+                    marginBottom: '2rem',
+                }}
+            >
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    style={{
+                        backgroundColor: '#F4F3F2',
+                        fontFamily: 'Roboto Mono, monospace',
+                        padding: '0.5rem',
+                        border: 'none',
+                        borderRadius: '10px',
+                        boxShadow: '0px 3px 10.300000190734863px rgba(0, 0, 0, 0.25)',
+                        width: '450px',
+                        height: '20px',
+                    }}
+                />
+            </div>
             <h1>{wordData[0].word}</h1>
 
             <h2>Phonetics</h2>
@@ -53,11 +83,11 @@ function DictionaryExample() {
             <h2>Meanings</h2>
             {wordData[0].meanings.map((meaning, index) => (
                 <div key={index}>
-                    <p>Part of Speech: {meaning.partOfSpeech}</p>
+                    <p>{meaning.partOfSpeech}</p>
                     <ul>
                         {meaning.definitions.map((definition, index) => (
                             <li key={index}>
-                                <p>Definition: {definition.definition}</p>
+                                <p>{definition.definition}</p>
                                 {/* You can add more details here, such as synonyms, antonyms, and examples */}
                             </li>
                         ))}
