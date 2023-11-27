@@ -11,10 +11,11 @@ function DictionaryExample() {
                 `https://api.dictionaryapi.dev/api/v2/entries/en/${searchTerm}`
             );
             if (!response.ok) {
-                throw new Error(`Word not found`);
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             const data = await response.json();
+
             setWordData(data);
         } catch (error) {
             setError(error.message);
@@ -27,6 +28,10 @@ function DictionaryExample() {
         }
     };
 
+    const clearError = () => {
+        setError(null);
+    };
+
     return (
         <div
             className="dictionary-container"
@@ -35,6 +40,7 @@ function DictionaryExample() {
                 flexDirection: 'column',
                 backgroundColor: '#F4F3F2',
                 padding: '3rem',
+                width: '40rem',
             }}
         >
             <div
@@ -48,8 +54,8 @@ function DictionaryExample() {
             >
                 <form
                     onSubmit={(e) => {
-                        e.preventDefault(); // Prevent the default form submission behavior
-                        handleSearch(); // Call your search function
+                        e.preventDefault();
+                        handleSearch();
                     }}
                     style={{
                         backgroundColor: '#F4F3F2',
@@ -78,7 +84,7 @@ function DictionaryExample() {
                     />
                     <button
                         type="submit"
-                        onClick={handleSearch}
+                        onClick={handleSearch && clearError}
                         style={{
                             border: 'none',
                             backgroundColor: 'transparent',
@@ -94,38 +100,52 @@ function DictionaryExample() {
                 </form>
             </div>
 
-            {wordData && wordData.length > 0 && (
-                <div>
-                    <h1>{wordData[0].word}</h1>
-
-                    <h2>Phonetics</h2>
-                    <ul>
-                        {wordData[0].phonetics.map((phonetic, index) => (
-                            <li key={index}>
-                                <p>{phonetic.text}</p>
-                                {phonetic.audio && (
-                                    <audio controls>
-                                        <source src={phonetic.audio} type="audio/mp3" />
-                                    </audio>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-
-                    <h2>Meanings</h2>
-                    {wordData[0].meanings.map((meaning, index) => (
-                        <div key={index}>
-                            <p>{meaning.partOfSpeech}</p>
-                            <ul>
-                                {meaning.definitions.map((definition, index) => (
-                                    <li key={index}>
-                                        <p>{definition.definition}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+            {error ? (
+                <div
+                    style={{
+                        fontFamily: 'Cormorant Garamond, serif',
+                        fontSize: '20px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginBottom: '1rem',
+                        marginTop: '1rem',
+                    }}
+                >
+                    Word not found, please try again.
                 </div>
+            ) : (
+                wordData &&
+                wordData.length > 0 && (
+                    <div>
+                        <h1>{wordData[0].word}</h1>
+                        <h2>Phonetics</h2>
+                        <ul>
+                            {wordData[0].phonetics.map((phonetic, index) => (
+                                <li key={index}>
+                                    <p>{phonetic.text}</p>
+                                    {phonetic.audio && (
+                                        <audio controls>
+                                            <source src={phonetic.audio} type="audio/mp3" />
+                                        </audio>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                        <h2>Meanings</h2>
+                        {wordData[0].meanings.map((meaning, index) => (
+                            <div key={index}>
+                                <p>{meaning.partOfSpeech}</p>
+                                <ul>
+                                    {meaning.definitions.map((definition, index) => (
+                                        <li key={index}>
+                                            <p>{definition.definition}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                )
             )}
         </div>
     );
