@@ -42,7 +42,7 @@ function DictionaryExample() {
                 alignItems: 'center',
                 backgroundColor: '#F4F3F2',
                 padding: '3rem',
-                width: '40rem',
+                width: '35rem',
                 marginBottom: '4rem',
             }}
         >
