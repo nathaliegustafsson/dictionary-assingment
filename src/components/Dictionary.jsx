@@ -61,12 +61,13 @@ function DictionaryExample() {
                         backgroundColor: '#F4F3F2',
                         display: 'flex',
                         justifyContent: 'space-between',
+                        alignItems: 'center',
                         padding: '0.5rem',
                         border: 'none',
                         borderRadius: '7px',
                         boxShadow: '0px 3px 10.300000190734863px rgba(0, 0, 0, 0.25)',
                         width: '450px',
-                        height: '20px',
+                        height: '30px',
                     }}
                 >
                     <input
@@ -89,8 +90,10 @@ function DictionaryExample() {
                             border: 'none',
                             backgroundColor: 'transparent',
                             padding: 0,
-                            marginBottom: '1rem',
                             cursor: 'pointer',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
                         }}
                     >
                         <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>
