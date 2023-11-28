@@ -16,6 +16,7 @@ function DictionaryExample() {
             }
 
             const data = await response.json();
+            console.log(data);
 
             setWordData(data);
             clearError();
@@ -78,21 +79,56 @@ function DictionaryExample() {
                         }}
                     >
                         <ul style={{ padding: 0 }}>
-                            <h1 style={{ fontFamily: 'Playfair Display, serif' }}>
-                                {wordData[0].word}
-                            </h1>
-                            {wordData[0].phonetics.map((phonetic, index) => (
-                                <li key={index} style={{ listStyle: 'none', display: 'flex' }}>
-                                    <p style={{ fontFamily: 'Playfair Display, serif' }}>
-                                        {phonetic.text}
-                                    </p>
-                                    {phonetic.audio && (
-                                        <audio controls>
-                                            <source src={phonetic.audio} type="audio/mp3" />
-                                        </audio>
-                                    )}
-                                </li>
-                            ))}
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <h2
+                                    style={{
+                                        fontFamily: 'Playfair Display, serif',
+                                        fontSize: '32px',
+                                        margin: 0,
+                                    }}
+                                >
+                                    {wordData[0].word}
+                                </h2>
+                                {wordData[0].phonetics
+                                    .filter((phonetic) => phonetic.text && phonetic.audio)
+                                    .slice(0, 1)
+                                    .map((phonetic, index) => (
+                                        <li
+                                            key={index}
+                                            style={{ listStyle: 'none', display: 'flex' }}
+                                        >
+                                            <img
+                                                src="/volume-icon.svg"
+                                                alt="Play Icon"
+                                                style={{
+                                                    width: '30px',
+                                                    height: '30px',
+                                                    cursor: 'pointer',
+                                                }}
+                                                onClick={() => {
+                                                    const audio = new Audio(phonetic.audio);
+                                                    audio.play();
+                                                }}
+                                            />
+                                        </li>
+                                    ))}
+                            </div>
+                            {wordData[0].phonetics
+                                .filter((phonetic) => phonetic.text && phonetic.audio)
+                                .slice(0, 1)
+                                .map((phonetic, index) => (
+                                    <li key={index} style={{ listStyle: 'none', display: 'flex' }}>
+                                        <p style={{ fontFamily: 'Playfair Display, serif' }}>
+                                            {phonetic.text}
+                                        </p>
+                                    </li>
+                                ))}
                         </ul>
 
                         <div
@@ -100,6 +136,7 @@ function DictionaryExample() {
                             style={{ height: '1px', width: '100%', backgroundColor: 'black' }}
                         ></div>
 
+                        <h3 style={{ fontFamily: 'Cormorant Garamond' }}>Meanings:</h3>
                         {wordData[0].meanings.map((meaning, index) => (
                             <div key={index}>
                                 <p style={{ fontFamily: 'Cormorant Garamond' }}>
@@ -116,6 +153,22 @@ function DictionaryExample() {
                                 </ul>
                             </div>
                         ))}
+
+                        <h3 style={{ fontFamily: 'Cormorant Garamond' }}>Synonyms:</h3>
+                        <div>
+                            <ul style={{ padding: 0 }}>
+                                {wordData[0].meanings[0].synonyms &&
+                                    wordData[0].meanings[0].synonyms
+                                        .slice(0, 6)
+                                        .map((synonym, synonymIndex) => (
+                                            <li key={synonymIndex} style={{ listStyle: 'none' }}>
+                                                <p style={{ fontFamily: 'Cormorant Garamond' }}>
+                                                    {synonym}
+                                                </p>
+                                            </li>
+                                        ))}
+                            </ul>
+                        </div>
                     </div>
                 )
             )}
