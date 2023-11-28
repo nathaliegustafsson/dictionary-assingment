@@ -33,3 +33,27 @@ test('should display searched word via enter', async () => {
         expect(screen.getByText('world')).toBeInTheDocument();
     });
 });
+
+test('should display error message when searching for a word that does not exist ', async () => {
+    render(<App />);
+    const user = userEvent.setup();
+
+    const searchInput = screen.getByRole('textbox');
+    await user.type(searchInput, 'Katt{Enter}');
+
+    await waitFor(() => {
+        expect(screen.getByText('Word not found. Please try again.')).toBeInTheDocument();
+    });
+});
+
+test('should display error message when the search is empty', async () => {
+    render(<App />);
+    const user = userEvent.setup();
+
+    const searchInput = screen.getByRole('textbox');
+    await user.type(searchInput, '{Enter}');
+
+    await waitFor(() => {
+        expect(screen.getByText('Please enter a word to search.')).toBeInTheDocument();
+    });
+});
