@@ -18,7 +18,7 @@ test('should display searched word via click', async () => {
     await user.click(button, { name: /search/i });
 
     await waitFor(() => {
-        expect(screen.getByText('world')).toBeInTheDocument();
+        expect(screen.getByText('world', { selector: 'h2' })).toBeInTheDocument();
     });
 });
 
@@ -55,5 +55,22 @@ test('should display error message when the search is empty', async () => {
 
     await waitFor(() => {
         expect(screen.getByText('Please enter a word to search.')).toBeInTheDocument();
+    });
+});
+
+test('should render the audio element', async () => {
+    render(<App />);
+    const user = userEvent.setup();
+
+    const searchInput = screen.getByRole('textbox');
+    await user.type(searchInput, 'coffee{Enter}');
+
+    await waitFor(() => {
+        expect(screen.getByText('coffee')).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+        const audioElement = screen.getByAltText('Play Icon');
+        expect(audioElement).toBeInTheDocument();
     });
 });
