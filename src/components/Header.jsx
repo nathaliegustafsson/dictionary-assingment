@@ -1,25 +1,25 @@
+import styled from 'styled-components';
+
 function Header() {
     return (
-        <div
-            className="header-container"
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '2rem',
-                marginBottom: '2rem',
-            }}
-        >
-            <h1
-                style={{
-                    fontFamily: 'Playfair Display, serif',
-                    fontSize: '2.5rem',
-                    fontWeight: '300',
-                }}
-            >
-                Dictionary
-            </h1>
-        </div>
+        <HeaderContainer>
+            <Title>Dictionary</Title>
+        </HeaderContainer>
     );
 }
 
 export default Header;
+
+//---- STYLING ----//
+const HeaderContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+`;
+
+const Title = styled.h1`
+    font-family: 'Playfair Display, serif';
+    font-size: 2.5rem;
+    font-weight: 300;
+`;

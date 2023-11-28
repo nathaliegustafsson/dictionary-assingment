@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 function DictionaryExample() {
     const [wordData, setWordData] = useState(null);
@@ -33,92 +34,36 @@ function DictionaryExample() {
     };
 
     return (
-        <div
-            className="dictionary-container"
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: '#F4F3F2',
-                padding: '3rem',
-                width: '35rem',
-                marginBottom: '4rem',
-            }}
-        >
-            <div
-                className="input-container"
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    marginTop: '1rem',
-                    marginBottom: '2rem',
-                }}
-            >
-                <form
+        <DictionaryContainer>
+            <InputContainer>
+                <Form
                     onSubmit={(e) => {
                         e.preventDefault();
                         handleSearch();
                     }}
-                    style={{
-                        backgroundColor: '#F4F3F2',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: '0.5rem',
-                        border: 'none',
-                        borderRadius: '7px',
-                        boxShadow: '0px 3px 10.300000190734863px rgba(0, 0, 0, 0.25)',
-                        width: '450px',
-                        height: '30px',
-                    }}
                 >
-                    <input
+                    <Input
                         type="text"
                         placeholder="Search..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        style={{
-                            backgroundColor: '#F4F3F2',
-                            fontFamily: 'Roboto Mono, monospace',
-                            border: 'none',
-                            width: '100%',
-                            outline: 'none',
-                        }}
                     />
-                    <button
+                    <Button
                         type="submit"
-                        onClick={handleSearch && clearError}
-                        style={{
-                            border: 'none',
-                            backgroundColor: 'transparent',
-                            padding: 0,
-                            cursor: 'pointer',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
+                        onClick={() => {
+                            handleSearch();
+                            clearError();
                         }}
                     >
                         <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>
                             search
                         </span>
-                    </button>
-                </form>
-            </div>
+                    </Button>
+                </Form>
+            </InputContainer>
 
             {error ? (
-                <div
-                    style={{
-                        fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '20px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginBottom: '1rem',
-                        marginTop: '1rem',
-                    }}
-                >
-                    Word not found, please try again.
-                </div>
+                <ErrorDiv>Word not found, please try again.</ErrorDiv>
             ) : (
                 wordData &&
                 wordData.length > 0 && (
@@ -169,8 +114,67 @@ function DictionaryExample() {
                     </div>
                 )
             )}
-        </div>
+        </DictionaryContainer>
     );
 }
 
 export default DictionaryExample;
+
+//---- STYLING ----//
+const DictionaryContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f3f2;
+    padding: 3rem;
+    width: 35rem;
+    margin-bottom: 4rem;
+`;
+
+const InputContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+`;
+
+const Form = styled.form`
+    background-color: #f4f3f2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 7px;
+    box-shadow: 0px 3px 10.300000190734863px rgba(0, 0, 0, 0.25);
+    width: 450px;
+    height: 30px;
+`;
+
+const Input = styled.input`
+    background-color: #f4f3f2;
+    font-family: 'Roboto Mono';
+    border: none;
+    width: 100%;
+    outline: none;
+`;
+
+const Button = styled.button`
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const ErrorDiv = styled.div`
+    font-family: 'Cormorant Garamond';
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+`;
