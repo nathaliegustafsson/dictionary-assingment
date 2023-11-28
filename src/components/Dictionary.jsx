@@ -12,20 +12,25 @@ function DictionaryExample() {
                 `https://api.dictionaryapi.dev/api/v2/entries/en/${searchTerm}`
             );
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`Word not found. Please try again.`);
             }
 
             const data = await response.json();
 
             setWordData(data);
+            clearError();
         } catch (error) {
             setError(error.message);
+            setWordData(null);
         }
     };
 
     const handleSearch = () => {
         if (searchTerm.trim() !== '') {
             fetchData(searchTerm);
+            clearError();
+        } else {
+            setError('Please enter a word to search.');
         }
     };
 
@@ -63,7 +68,7 @@ function DictionaryExample() {
             </InputContainer>
 
             {error ? (
-                <ErrorDiv>Word not found, please try again.</ErrorDiv>
+                <ErrorDiv>{error}</ErrorDiv>
             ) : (
                 wordData &&
                 wordData.length > 0 && (
