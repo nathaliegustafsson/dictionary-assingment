@@ -135,7 +135,7 @@ describe('Meaning Display', () => {
         });
     });
 
-    test('should render an synonym text', async () => {
+    test('should render a synonym text', async () => {
         render(<App />);
         const user = userEvent.setup();
 
@@ -147,7 +147,7 @@ describe('Meaning Display', () => {
         });
 
         await waitFor(() => {
-            const meaningText = screen.getByText('greeting');
+            const meaningText = screen.getByText('Synonyms');
             expect(meaningText).toBeInTheDocument();
         });
     });
@@ -164,7 +164,7 @@ describe('Meaning Display', () => {
         });
 
         await waitFor(() => {
-            const meaningText = screen.getByText('down');
+            const meaningText = screen.getByText('Antonyms');
             expect(meaningText).toBeInTheDocument();
         });
     });
