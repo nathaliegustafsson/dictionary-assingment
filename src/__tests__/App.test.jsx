@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 
-describe('Title visability', () => {
+describe('Title Visability', () => {
     test('if there is a header with correct title', () => {
         render(<App />);
         expect(screen.getByText('Dictionary')).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('Search Functionality', () => {
     });
 });
 
-describe('Search Functionality', () => {
+describe('Error Handling', () => {
     test('should display error message when searching for a word that does not exist ', async () => {
         render(<App />);
         const user = userEvent.setup();
