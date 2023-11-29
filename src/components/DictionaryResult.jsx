@@ -38,14 +38,9 @@ function DictionaryResult({ wordData, error }) {
                                             key={index}
                                             style={{ listStyle: 'none', display: 'flex' }}
                                         >
-                                            <img
+                                            <VolumeImage
                                                 src="/volume-icon.svg"
                                                 alt="Play Icon"
-                                                style={{
-                                                    width: '30px',
-                                                    height: '30px',
-                                                    cursor: 'pointer',
-                                                }}
                                                 onClick={() => {
                                                     const audio = new Audio(phonetic.audio);
                                                     audio.play();
@@ -189,4 +184,10 @@ const Border = styled.div`
     height: 1px;
     width: 100%;
     background-color: black;
+`;
+
+const VolumeImage = styled.img`
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 `;
