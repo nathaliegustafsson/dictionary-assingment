@@ -22,6 +22,7 @@ function Dictionary() {
 
             setWordData(data);
             clearError();
+            setSearchTerm('');
         } catch (error) {
             setError(error.message);
             setWordData(null);
