@@ -1,6 +1,21 @@
 import styled from 'styled-components';
 
+function getPhoneticWithAudio(phonetics) {
+    const withAudio = phonetics?.find((phonetic) => phonetic.text && phonetic.audio);
+
+    // if there's an object containing both text and audio, use that
+    if (withAudio) {
+        return [withAudio];
+    }
+
+    // otherwise, use the first object with just text (if it exists)
+    const withText = phonetics?.find((phonetic) => phonetic.text);
+    return withText ? [withText] : [];
+}
+
 function DictionaryResult({ wordData, error }) {
+    const selectedPhonetics = getPhoneticWithAudio(wordData?.[0]?.phonetics);
+
     return (
         <div>
             {error ? (
@@ -30,14 +45,9 @@ function DictionaryResult({ wordData, error }) {
                                 >
                                     {wordData[0].word}
                                 </h2>
-                                {wordData[0].phonetics
-                                    .filter((phonetic) => phonetic.text && phonetic.audio)
-                                    .slice(0, 1)
-                                    .map((phonetic, index) => (
-                                        <li
-                                            key={index}
-                                            style={{ listStyle: 'none', display: 'flex' }}
-                                        >
+                                {selectedPhonetics?.map((phonetic, index) => (
+                                    <li key={index} style={{ listStyle: 'none', display: 'flex' }}>
+                                        {phonetic.audio && (
                                             <VolumeImage
                                                 src="/volume-icon.svg"
                                                 alt="Play Icon"
@@ -46,25 +56,20 @@ function DictionaryResult({ wordData, error }) {
                                                     audio.play();
                                                 }}
                                             />
-                                        </li>
-                                    ))}
+                                        )}
+                                    </li>
+                                ))}
                             </div>
                             <div
                                 style={{ display: 'flex', gap: '0.5rem', letterSpacing: '0.15rem' }}
                             >
-                                {wordData[0].phonetics
-                                    .filter((phonetic) => phonetic.text && phonetic.audio)
-                                    .slice(0, 1)
-                                    .map((phonetic, index) => (
-                                        <li
-                                            key={index}
-                                            style={{ listStyle: 'none', display: 'flex' }}
-                                        >
-                                            <p style={{ fontFamily: 'Playfair Display, serif' }}>
-                                                {phonetic.text}
-                                            </p>
-                                        </li>
-                                    ))}
+                                {selectedPhonetics?.map((phonetic, index) => (
+                                    <li key={index} style={{ listStyle: 'none', display: 'flex' }}>
+                                        <p style={{ fontFamily: 'Playfair Display, serif' }}>
+                                            {phonetic.text}
+                                        </p>
+                                    </li>
+                                ))}
                                 {wordData[0].meanings.slice(0, 1).map((meaning, index) => (
                                     <div key={index}>
                                         <p style={{ fontFamily: 'Playfair Display' }}>
