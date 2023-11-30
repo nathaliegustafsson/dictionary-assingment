@@ -104,7 +104,7 @@ describe('Meaning Display', () => {
 
         await screen.findByText('coffee');
 
-        await screen.findByText('To drink coffee.');
+        await screen.findByText('A tropical plant of the genus Coffea.');
     });
 
     test('should render a synonym text', async () => {
@@ -112,11 +112,11 @@ describe('Meaning Display', () => {
         const user = userEvent.setup();
 
         const searchInput = screen.getByRole('textbox');
-        await user.type(searchInput, 'hello{Enter}');
+        await user.type(searchInput, 'cat{Enter}');
 
-        await screen.findByText('hello');
+        await screen.findByText('cat');
 
-        await screen.findByText('Synonyms');
+        await screen.findByText('pantherine cat');
     });
 
     test('should render an antonym text', async () => {
