@@ -51,7 +51,7 @@ const Form = styled.form`
     border: none;
     border-radius: 7px;
     box-shadow: 0px 3px 10.300000190734863px rgba(0, 0, 0, 0.25);
-    width: 450px;
+    width: 480px;
     height: 30px;
 `;
 
