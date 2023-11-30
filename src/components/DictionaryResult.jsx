@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 
-function getPhoneticWithAudio(phonetics) {
-    const withAudio = phonetics?.find((phonetic) => phonetic.text && phonetic.audio);
+function getPhoneticWithTextAndAudio(phonetics) {
+    const withTextAndAudio = phonetics?.find((phonetic) => phonetic.text && phonetic.audio);
 
-    // if there's an object containing both text and audio, use that
-    if (withAudio) {
-        return [withAudio];
+    // If there's an object containing both text and audio, use that
+    if (withTextAndAudio) {
+        return [withTextAndAudio];
     }
 
-    // otherwise, use the first object with just text (if it exists)
+    // Otherwise, use the first object with just text (if it exists)
     const withText = phonetics?.find((phonetic) => phonetic.text);
     return withText ? [withText] : [];
 }
 
 function DictionaryResult({ wordData, error }) {
-    const selectedPhonetics = getPhoneticWithAudio(wordData?.[0]?.phonetics);
+    const selectedPhonetics = getPhoneticWithTextAndAudio(wordData?.[0]?.phonetics);
 
     return (
         <div>
@@ -25,7 +25,7 @@ function DictionaryResult({ wordData, error }) {
                 wordData.length > 0 && (
                     <div
                         style={{
-                            width: '450px',
+                            width: '480px',
                         }}
                     >
                         <ul style={{ padding: 0 }}>
@@ -81,26 +81,25 @@ function DictionaryResult({ wordData, error }) {
                         </ul>
 
                         <Border />
-
-                        {wordData[0].meanings.map((meaning, index) => (
-                            <div key={index}>
-                                <ul
-                                    style={{
-                                        padding: 0,
-                                        marginBottom: '1.5rem',
-                                        marginTop: '1.5rem',
-                                    }}
-                                >
-                                    {meaning.definitions.map((definition, index) => (
+                        {wordData[0].meanings[0].definitions.slice(0, 10).map(
+                            (definition, index) => (
+                                <div key={index}>
+                                    <ul
+                                        style={{
+                                            padding: 0,
+                                            marginBottom: '1.5rem',
+                                            marginTop: '1.5rem',
+                                        }}
+                                    >
                                         <li key={index} style={{ listStyle: 'none' }}>
                                             <p style={{ fontFamily: 'Cormorant Garamond' }}>
                                                 {definition.definition}
                                             </p>
                                         </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
+                                    </ul>
+                                </div>
+                            )
+                        )}
 
                         <div>
                             {wordData[0].meanings[0].synonyms &&
