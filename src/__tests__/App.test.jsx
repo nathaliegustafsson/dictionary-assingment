@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 
@@ -20,9 +20,7 @@ describe('Search Functionality', () => {
         const button = screen.getByRole('button');
         await user.click(button, { name: /search/i });
 
-        await waitFor(() => {
-            expect(screen.getByText('world', { selector: 'h2' })).toBeInTheDocument();
-        });
+        await screen.findByText('world');
     });
 
     test('should display searched word via enter', async () => {
@@ -32,9 +30,7 @@ describe('Search Functionality', () => {
         const searchInput = screen.getByRole('textbox');
         await user.type(searchInput, 'world{Enter}');
 
-        await waitFor(() => {
-            expect(screen.getByText('world')).toBeInTheDocument();
-        });
+        await screen.findByText('world');
     });
 });
 
@@ -46,9 +42,7 @@ describe('Error Handling', () => {
         const searchInput = screen.getByRole('textbox');
         await user.type(searchInput, 'Katt{Enter}');
 
-        await waitFor(() => {
-            expect(screen.getByText('Word not found. Please try again.')).toBeInTheDocument();
-        });
+        await screen.findByText('Word not found. Please try again.');
     });
 
     test('should display error message when the search is empty', async () => {
@@ -58,9 +52,7 @@ describe('Error Handling', () => {
         const searchInput = screen.getByRole('textbox');
         await user.type(searchInput, '{Enter}');
 
-        await waitFor(() => {
-            expect(screen.getByText('Please enter a word to search.')).toBeInTheDocument();
-        });
+        await screen.findByText('Please enter a word to search.');
     });
 });
 
@@ -72,14 +64,9 @@ describe('Audio Functionality', () => {
         const searchInput = screen.getByRole('textbox');
         await user.type(searchInput, 'coffee{Enter}');
 
-        await waitFor(() => {
-            expect(screen.getByText('coffee')).toBeInTheDocument();
-        });
+        await screen.findByText('coffee');
 
-        await waitFor(() => {
-            const audioElement = screen.getByAltText('Play Icon');
-            expect(audioElement).toBeInTheDocument();
-        });
+        await screen.findByAltText('Play Icon');
     });
 });
 
@@ -91,14 +78,9 @@ describe('Meaning Display', () => {
         const searchInput = screen.getByRole('textbox');
         await user.type(searchInput, 'coffee{Enter}');
 
-        await waitFor(() => {
-            expect(screen.getByText('coffee')).toBeInTheDocument();
-        });
+        await screen.findByText('coffee');
 
-        await waitFor(() => {
-            const phoneticText = screen.getByText('/ˈkɒ.fi/');
-            expect(phoneticText).toBeInTheDocument();
-        });
+        await screen.findByText('/ˈkɒ.fi/');
     });
 
     test('should render partOfSpeech text', async () => {
@@ -108,14 +90,9 @@ describe('Meaning Display', () => {
         const searchInput = screen.getByRole('textbox');
         await user.type(searchInput, 'coffee{Enter}');
 
-        await waitFor(() => {
-            expect(screen.getByText('coffee')).toBeInTheDocument();
-        });
+        await screen.findByText('coffee');
 
-        await waitFor(() => {
-            const partOfSpeech = screen.getByText('noun');
-            expect(partOfSpeech).toBeInTheDocument();
-        });
+        await screen.findByText('noun');
     });
 
     test('should render meaning text', async () => {
@@ -125,14 +102,9 @@ describe('Meaning Display', () => {
         const searchInput = screen.getByRole('textbox');
         await user.type(searchInput, 'coffee{Enter}');
 
-        await waitFor(() => {
-            expect(screen.getByText('coffee')).toBeInTheDocument();
-        });
+        await screen.findByText('coffee');
 
-        await waitFor(() => {
-            const meaningText = screen.getByText('To drink coffee.');
-            expect(meaningText).toBeInTheDocument();
-        });
+        await screen.findByText('To drink coffee.');
     });
 
     test('should render a synonym text', async () => {
@@ -142,14 +114,9 @@ describe('Meaning Display', () => {
         const searchInput = screen.getByRole('textbox');
         await user.type(searchInput, 'hello{Enter}');
 
-        await waitFor(() => {
-            expect(screen.getByText('hello')).toBeInTheDocument();
-        });
+        await screen.findByText('hello');
 
-        await waitFor(() => {
-            const meaningText = screen.getByText('Synonyms');
-            expect(meaningText).toBeInTheDocument();
-        });
+        await screen.findByText('Synonyms');
     });
 
     test('should render an antonym text', async () => {
@@ -159,13 +126,8 @@ describe('Meaning Display', () => {
         const searchInput = screen.getByRole('textbox');
         await user.type(searchInput, 'up{Enter}');
 
-        await waitFor(() => {
-            expect(screen.getByText('up')).toBeInTheDocument();
-        });
+        await screen.findByText('up');
 
-        await waitFor(() => {
-            const meaningText = screen.getByText('Antonyms');
-            expect(meaningText).toBeInTheDocument();
-        });
+        await screen.findByText('down');
     });
 });
