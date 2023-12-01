@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+// Function to get the first object containing both text and audio and
+// if audio do not exist, just show the text
 function getPhoneticWithTextAndAudio(phonetics) {
     const withTextAndAudio = phonetics?.find((phonetic) => phonetic.text && phonetic.audio);
 
@@ -81,8 +83,9 @@ function DictionaryResult({ wordData, error }) {
                         </ul>
 
                         <Border />
-                        {wordData[0].meanings[0].definitions.slice(0, 10).map(
-                            (definition, index) => (
+                        {wordData[0].meanings[0].definitions
+                            .slice(0, 10)
+                            .map((definition, index) => (
                                 <div key={index}>
                                     <ul
                                         style={{
@@ -98,8 +101,7 @@ function DictionaryResult({ wordData, error }) {
                                         </li>
                                     </ul>
                                 </div>
-                            )
-                        )}
+                            ))}
 
                         <div>
                             {wordData[0].meanings[0].synonyms &&
