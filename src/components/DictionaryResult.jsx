@@ -84,7 +84,7 @@ function DictionaryResult({ wordData, error }) {
 
                         <Border />
                         {/* I've chosen to show a maximum of 5 definitions per partOfSpeech, 
-                        so that it doesn't take up too much space and get too much to read */}
+                        so that it doesn't take up too much space */}
                         {wordData[0].meanings[0].definitions
                             .slice(0, 5)
                             .map((definition, index) => (
@@ -106,8 +106,8 @@ function DictionaryResult({ wordData, error }) {
                             ))}
 
                         {/* Here I've chosen to show the other partOfSpeech and their definitions, as
-                        the first partOfSpeech is already shown, and same as before I show 5 definitions
-                        per partOfSpeech */}
+                        the first partOfSpeech is already shown. As before I'v cosen to show 5 definitions
+                        per partOfSpeech, so that they don't take up too much space */}
                         {wordData[0].meanings.slice(1).map((meaning, index) => (
                             <div key={index}>
                                 <p style={{ fontFamily: 'Playfair Display', fontSize: '18px' }}>
