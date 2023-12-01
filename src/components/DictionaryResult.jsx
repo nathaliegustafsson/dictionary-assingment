@@ -96,11 +96,11 @@ function DictionaryResult({ wordData, error }) {
                                             marginTop: '1.5rem',
                                         }}
                                     >
-                                        <li key={index} style={{ listStyle: 'none' }}>
+                                        <List key={index}>
                                             <p style={{ fontFamily: 'Cormorant Garamond' }}>
                                                 {definition.definition}
                                             </p>
-                                        </li>
+                                        </List>
                                     </ul>
                                 </div>
                             ))}
@@ -118,11 +118,11 @@ function DictionaryResult({ wordData, error }) {
                                     {meaning.definitions
                                         .slice(0, 5)
                                         .map((definition, definitionIndex) => (
-                                            <li key={definitionIndex} style={{ listStyle: 'none' }}>
+                                            <List key={definitionIndex}>
                                                 <p style={{ fontFamily: 'Cormorant Garamond' }}>
                                                     {definition.definition}
                                                 </p>
-                                            </li>
+                                            </List>
                                         ))}
                                 </ul>
                             </div>
@@ -141,12 +141,7 @@ function DictionaryResult({ wordData, error }) {
                                                 {wordData[0].meanings[0].synonyms
                                                     .slice(0, 6)
                                                     .map((synonym, synonymIndex) => (
-                                                        <li
-                                                            key={synonymIndex}
-                                                            style={{
-                                                                listStyle: 'none',
-                                                            }}
-                                                        >
+                                                        <List key={synonymIndex}>
                                                             <p
                                                                 style={{
                                                                     fontFamily:
@@ -155,7 +150,7 @@ function DictionaryResult({ wordData, error }) {
                                                             >
                                                                 {synonym}
                                                             </p>
-                                                        </li>
+                                                        </List>
                                                     ))}
                                             </ul>
                                         </div>
@@ -176,12 +171,7 @@ function DictionaryResult({ wordData, error }) {
                                                 {wordData[0].meanings[0].antonyms
                                                     .slice(0, 6)
                                                     .map((antonym, antonymIndex) => (
-                                                        <li
-                                                            key={antonymIndex}
-                                                            style={{
-                                                                listStyle: 'none',
-                                                            }}
-                                                        >
+                                                        <List key={antonymIndex}>
                                                             <p
                                                                 style={{
                                                                     fontFamily:
@@ -190,7 +180,7 @@ function DictionaryResult({ wordData, error }) {
                                                             >
                                                                 {antonym}
                                                             </p>
-                                                        </li>
+                                                        </List>
                                                     ))}
                                             </ul>
                                         </div>
@@ -206,6 +196,7 @@ function DictionaryResult({ wordData, error }) {
 
 export default DictionaryResult;
 
+//---- STYLING ----//
 const ErrorDiv = styled.div`
     font-family: 'Cormorant Garamond';
     font-size: 20px;
@@ -225,4 +216,8 @@ const VolumeImage = styled.img`
     width: 30px;
     height: 30px;
     cursor: pointer;
+`;
+
+const List = styled.li`
+    list-style: none;
 `;
