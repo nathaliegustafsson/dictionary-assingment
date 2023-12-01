@@ -35,6 +35,7 @@ function DictionarySearch({ searchTerm, setSearchTerm, handleSearch, clearError 
 
 export default DictionarySearch;
 
+//---- STYLING ----//
 const InputContainer = styled.div`
     display: flex;
     justify-content: center;
