@@ -18,7 +18,6 @@ function Dictionary() {
             }
 
             const data = await response.json();
-            console.log(data);
 
             setWordData(data);
             clearError();
