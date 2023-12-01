@@ -30,9 +30,9 @@ describe('Search Functionality', () => {
         const user = userEvent.setup();
 
         const searchInput = screen.getByRole('textbox');
-        await user.type(searchInput, 'world{Enter}');
+        await user.type(searchInput, 'cat{Enter}');
 
-        const searchedWord = await screen.findByText('world', {}, { timeout: 5000 });
+        const searchedWord = await screen.findByText('cat', {}, { timeout: 5000 });
         expect(searchedWord).toBeInTheDocument();
     });
 });
