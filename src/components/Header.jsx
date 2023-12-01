@@ -16,8 +16,8 @@ export default Header;
 const HeaderContainer = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
 `;
 
 const Title = styled.h1`
