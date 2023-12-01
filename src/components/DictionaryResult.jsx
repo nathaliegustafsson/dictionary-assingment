@@ -83,8 +83,10 @@ function DictionaryResult({ wordData, error }) {
                         </ul>
 
                         <Border />
+                        {/* I've chosen to show a maximum of 5 definitions per partOfSpeech, 
+                        so that it doesn't take up too much space and get too much to read */}
                         {wordData[0].meanings[0].definitions
-                            .slice(0, 10)
+                            .slice(0, 5)
                             .map((definition, index) => (
                                 <div key={index}>
                                     <ul
@@ -103,6 +105,29 @@ function DictionaryResult({ wordData, error }) {
                                 </div>
                             ))}
 
+                        {/* Here I've chosen to show the other partOfSpeech and their definitions, as
+                        the first partOfSpeech is already shown, and same as before I show 5 definitions
+                        per partOfSpeech */}
+                        {wordData[0].meanings.slice(1).map((meaning, index) => (
+                            <div key={index}>
+                                <p style={{ fontFamily: 'Playfair Display', fontSize: '18px' }}>
+                                    {meaning.partOfSpeech.charAt(0).toUpperCase() +
+                                        meaning.partOfSpeech.slice(1)}
+                                </p>
+                                <ul style={{ padding: 0 }}>
+                                    {meaning.definitions
+                                        .slice(0, 5)
+                                        .map((definition, definitionIndex) => (
+                                            <li key={definitionIndex} style={{ listStyle: 'none' }}>
+                                                <p style={{ fontFamily: 'Cormorant Garamond' }}>
+                                                    {definition.definition}
+                                                </p>
+                                            </li>
+                                        ))}
+                                </ul>
+                            </div>
+                        ))}
+
                         <div>
                             {wordData[0].meanings[0].synonyms &&
                                 wordData[0].meanings[0].synonyms.length > 0 && (
@@ -111,6 +136,8 @@ function DictionaryResult({ wordData, error }) {
                                         <h3 style={{ fontFamily: 'Playfair Display' }}>Synonyms</h3>
                                         <div>
                                             <ul style={{ padding: 0 }}>
+                                                {/* I've chosen to show a maximum of 6 synonyms, 
+                                                    so that it doesn't take up too much space */}
                                                 {wordData[0].meanings[0].synonyms
                                                     .slice(0, 6)
                                                     .map((synonym, synonymIndex) => (
@@ -144,6 +171,8 @@ function DictionaryResult({ wordData, error }) {
                                         <h3 style={{ fontFamily: 'Playfair Display' }}>Antonyms</h3>
                                         <div>
                                             <ul style={{ padding: 0 }}>
+                                                {/* I've chosen to show a maximum of 6 antonyms, 
+                                                    so that it doesn't take up too much space */}
                                                 {wordData[0].meanings[0].antonyms
                                                     .slice(0, 6)
                                                     .map((antonym, antonymIndex) => (
